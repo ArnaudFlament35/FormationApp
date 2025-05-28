@@ -3,12 +3,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    user: "${UID_WSL}:${GID_WSL}"
     volumes:
       - .:/var/www/html:delegated
     environment:
       # Nouvelle URL de base de données pour MariaDB
       DATABASE_URL: mysql://symfony:symfony@database:3306/symfony?serverVersion=10.11&charset=utf8mb4
       APP_ENV: dev
+      UID_WSL: ${UID_WSL}
+      GID_WSL: ${GID_WSL}
+      SYMFONY_HOME: /var/www/html/var/symfony_home
 
   nginx:
     image: nginx:stable-alpine

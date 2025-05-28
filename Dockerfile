@@ -18,9 +18,12 @@ RUN apk add --no-cache \
 # Installe Composer dans le conteneur
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
-# Installe le CLI Symfony dans le conteneur
-# Télécharge le binaire
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-
-# Déplace le binaire dans un répertoire du PATH pour le rendre globalement disponible
-RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+RUN curl -sSL https://github.com/symfony/cli/releases/latest/download/symfony-cli-linux-amd64 -o /usr/local/bin/symfony \
+    && chmod +x /usr/local/bin/symfony
+# Crée un dossier pour le cache de Composer et donne les bonnes permissions
+RUN mkdir -p var/composer_cache && chmod -R 777 var/composer_cache
+# Définit la variable d'environnement pour Composer
+ENV COMPOSER_CACHE_DIR=/var/www/html/var/composer_cache
+RUN chmod -R 777 var/
+RUN mkdir -p var/symfony_home && chmod -R 777 var/symfony_home
+EXPOSE 9000

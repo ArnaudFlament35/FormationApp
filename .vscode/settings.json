@@ -1,0 +1,35 @@
+// .vscode/settings.json
+{
+    // Recommande les extensions VS Code pour le projet
+    "extensions.recommendations": [
+        "ms-vscode-remote.remote-wsl", // Si tu es sur Windows avec WSL2
+        "felixfbecker.php-debug",      // Pour le débogage PHP (Xdebug)
+        "bmewburn.vscode-intelephense-client", // IntelliSense PHP performant
+        "esbenp.prettier-vscode",      // Formatteur de code (JS, CSS, HTML, etc.)
+        "dbaeumer.vscode-eslint",      // Linter JavaScript
+        "ikappas.phpcs",               // PHP Code Sniffer (pour les standards de code PHP)
+        "symfony.symfony-vscode",      // Support Symfony
+        "redhat.vscode-yaml",          // Pour les fichiers YAML (Docker Compose, Symfony config)
+        "ms-azuretools.vscode-docker"  // Pour une meilleure gestion de Docker
+    ],
+    // Paramètres spécifiques au formatage du code
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "[twig]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode" // Ou une autre extension pour Twig si tu en utilises une
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
+    // Configuration de l'intégration avec PHP-CS-Fixer ou PHP Code Sniffer via Docker
+    "phpcs.enable": true,
+    "phpcs.executablePath": "docker-compose exec php /var/www/html/vendor/bin/phpcs", // Chemin si installé via Composer
+    "phpcs.standard": "PSR12", // Ou un autre standard comme Symfony
+    "phpmd.executablePath": "docker-compose exec php /var/www/html/vendor/bin/phpmd",
+    // Chemin pour PHP Intelephense (si nécessaire, souvent il le trouve automatiquement)
+    "intelephense.environment.phpVersion": "8.2", // Indique la version PHP utilisée dans Docker
+    "php.executablePath": "docker-compose exec php php", // Exemple pour l'exécutable PHP via Docker
+    "php.validate.executablePath": "docker-compose exec php php"
+}
